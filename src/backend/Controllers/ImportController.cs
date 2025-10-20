@@ -94,15 +94,12 @@ namespace Parking.Api.Controllers
                         bool mensalista = bool.TryParse(mensalistaRaw, out var m) && m;
                         decimal? valorMens = decimal.TryParse(valorMensRaw, out var vm) ? vm : null;
 
-                        // Verifica duplicado
                         if (await _db.Veiculos.AnyAsync(v => v.Placa == placa))
                             throw new InvalidOperationException("Placa duplicada");
 
-                        // Validar cliente — preferir buscar por identificador se fornecido
                         Cliente cliente = null!;
                         if (!string.IsNullOrWhiteSpace(cliId))
                         {
-                            // tentar parse Id numérico (se aplicável ao seu modelo)
                             if (int.TryParse(cliId, out var parsedId))
                             {
                                 cliente = await _db.Clientes.FindAsync(parsedId);
@@ -111,7 +108,6 @@ namespace Parking.Api.Controllers
 
                         if (cliente == null)
                         {
-                            // fallback por nome + telefone
                             cliente = await _db.Clientes.FirstOrDefaultAsync(c => c.Nome == cliNome && c.Telefone == cliTel);
                         }
 
@@ -136,7 +132,6 @@ namespace Parking.Api.Controllers
                     }
                     catch (Exception exRow)
                     {
-                        // registrar erro estruturado: linha, campo (se detectável), motivo, raw
                         erros.Add(new
                         {
                             linha,
