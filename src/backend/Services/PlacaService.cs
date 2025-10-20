@@ -5,17 +5,20 @@ namespace Parking.Api.Services
 {
     public class PlacaService
     {
-        // Intencionalmente simples (candidato deve robustecer)
         public string Sanitizar(string? placa)
         {
-            var p = Regex.Replace(placa ?? "", "[^A-Za-z0-9]", "").ToUpperInvariant();
-            return p;
+            if (string.IsNullOrWhiteSpace(placa)) return string.Empty;
+            return Regex.Replace(placa.Trim(), "[^A-Za-z0-9]", "").ToUpperInvariant();
         }
 
-        // TODO: melhorar regras para Mercosul - aceitar AAA1A23 e similares
         public bool EhValida(string placa)
         {
-            return Regex.IsMatch(placa, "^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$");
+            if (string.IsNullOrWhiteSpace(placa)) return false;
+
+            var regexAntigo = @"^[A-Z]{3}[0-9]{4}$";
+            var regexMercosul = @"^[A-Z]{3}[0-9][A-Z][0-9]{2}$";
+
+            return Regex.IsMatch(placa, regexAntigo) || Regex.IsMatch(placa, regexMercosul);
         }
     }
 }
