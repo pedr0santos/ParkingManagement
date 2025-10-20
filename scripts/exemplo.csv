@@ -1,0 +1,7 @@
+placa,modelo,ano,cliente_identificador,cliente_nome,cliente_telefone,cliente_endereco,mensalista,valor_mensalidade
+BRA1A23,Gol,2019,CLI-001,João Souza,31 99999-0001,"Rua A, 123",true,189.90
+RCH2B45,Onix,2020,CLI-002,Maria Lima,31 98888-0002,"Av. B, 456",false,
+ABC1D23,HB20,2018,CLI-001,João Souza,31 99999-0001,"Rua A, 123",true,189.90
+AAA-1111,Uno,2015,CLI-003,Carlos Silva,(31) 97777-0003,"Rua C, 789",true,159.90
+INV-XXXX,Carro,2020,CLI-004,Erro Placa,31 96666-0004,"Rua X, 000",true,120.00
+BRA1A23,Gol,2019,CLI-001,Duplicada,31 95555-0005,"Rua Dup, 12",true,100.00

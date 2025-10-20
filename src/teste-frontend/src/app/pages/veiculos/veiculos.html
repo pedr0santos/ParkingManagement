@@ -1,0 +1,93 @@
+<div class="container">
+  <h2>Veículos</h2>
+
+  <!-- SELEÇÃO DE CLIENTE -->
+  <div class="section">
+    <div style="display: flex; gap: 10px; align-items: center">
+      <label>Cliente:</label>
+      <select
+        [(ngModel)]="clienteId"
+        (change)="form.clienteId = clienteId; loadVeiculos()"
+      >
+        <option *ngFor="let c of clientes" [value]="c.id">
+          {{ c.nome }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- FORM NOVO VEÍCULO -->
+  <h3>Novo veículo</h3>
+  <div class="section">
+    <div class="grid grid-4">
+      <input placeholder="Placa" [(ngModel)]="form.placa" />
+      <input placeholder="Modelo" [(ngModel)]="form.modelo" />
+      <input placeholder="Ano" [(ngModel)]="form.ano" />
+      <button (click)="salvar()">Salvar</button>
+    </div>
+  </div>
+
+  <!-- LISTA -->
+  <h3 style="margin-top: 16px">Lista</h3>
+  <div class="section">
+    <p *ngIf="isLoadingVeiculos">Carregando...</p>
+
+    <table *ngIf="!isLoadingVeiculos">
+      <thead>
+        <tr>
+          <th>Placa</th>
+          <th>Modelo</th>
+          <th>Ano</th>
+          <th>ClienteId</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of veiculos">
+          <td>{{ v.placa }}</td>
+
+          <td *ngIf="editingId !== v.id">{{ v.modelo }}</td>
+          <td *ngIf="editingId === v.id">
+            <input [(ngModel)]="editForm.modelo" placeholder="Modelo" />
+          </td>
+
+          <td>{{ v.ano ?? "-" }}</td>
+
+          <td *ngIf="editingId !== v.id">{{ v.clienteId }}</td>
+          <td *ngIf="editingId === v.id">
+            <select [(ngModel)]="editForm.clienteId">
+              <option *ngFor="let c of clientes" [value]="c.id">
+                {{ c.nome }}
+              </option>
+            </select>
+          </td>
+
+          <td style="display: flex; gap: 8px">
+            <button
+              *ngIf="editingId !== v.id"
+              class="btn-ghost"
+              (click)="startEdit(v)"
+            >
+              Editar
+            </button>
+            <button
+              *ngIf="editingId === v.id"
+              class="btn-ghost"
+              (click)="confirmEdit(v)"
+            >
+              Salvar
+            </button>
+            <button
+              *ngIf="editingId === v.id"
+              class="btn-ghost"
+              (click)="cancelEdit()"
+            >
+              Cancelar
+            </button>
+            <button class="btn-ghost" (click)="excluir(v.id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

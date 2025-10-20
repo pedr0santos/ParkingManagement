@@ -1,0 +1,76 @@
+<div class="container">
+  <h2>Clientes</h2>
+
+  <!-- FILTROS -->
+  <div class="section">
+    <div class="grid grid-3">
+      <input
+        placeholder="Buscar por nome"
+        [(ngModel)]="filtro"
+        (input)="loadClientes()"
+      />
+      <select [(ngModel)]="mensalista" (change)="loadClientes()">
+        <option value="all">Todos</option>
+        <option value="true">Mensalistas</option>
+        <option value="false">Não mensalistas</option>
+      </select>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- FORMULÁRIO -->
+  <h3>{{ form.id ? 'Editar cliente' : 'Novo cliente' }}</h3>
+  <div class="section">
+    <div class="grid grid-4">
+      <input placeholder="Nome" [(ngModel)]="form.nome" />
+      <input placeholder="Telefone" [(ngModel)]="form.telefone" />
+      <input placeholder="Endereço" [(ngModel)]="form.endereco" />
+
+      <label style="display:flex; align-items:center; gap:8px">
+        <input type="checkbox" [(ngModel)]="form.mensalista" />
+        Mensalista
+      </label>
+
+      <input
+        placeholder="Valor mensalidade"
+        [(ngModel)]="form.valorMensalidade"
+      />
+
+      <div></div>
+      <div></div>
+
+      <button (click)="salvarOuEditar()">
+        {{ form.id ? 'Atualizar' : 'Salvar' }}
+      </button>
+      <button *ngIf="form.id" (click)="resetForm()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- LISTA -->
+  <h3 style="margin-top:16px">Lista</h3>
+  <div class="section">
+    <p *ngIf="isLoading">Carregando...</p>
+
+    <table *ngIf="!isLoading">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+          <th>Mensalista</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of clientes">
+          <td>{{ c.nome }}</td>
+          <td>{{ c.telefone }}</td>
+          <td>{{ c.mensalista ? 'Sim' : 'Não' }}</td>
+          <td style="display:flex; gap:8px">
+            <button class="btn-ghost" (click)="editar(c)">Editar</button>
+            <button class="btn-ghost" (click)="excluir(c.id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

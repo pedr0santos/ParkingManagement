@@ -1,0 +1,36 @@
+.container{
+  padding: 3% 10% 10% 10%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th, td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: top;
+  word-wrap: break-word;
+}
+
+.btn-ghost {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-ghost:hover {
+  text-decoration: underline;
+}
+
+.placas {
+  margin-top: 6px;
+  font-size: 0.9em;
+  color: #555;
+  white-space: normal;
+}

@@ -1,0 +1,74 @@
+<div class="container">
+  <h2>Importar CSV</h2>
+
+  <div class="section">
+    <form
+      (submit)="handleUpload($event)"
+      style="display: flex; gap: 10px; align-items: center"
+    >
+      <input type="file" name="file" accept=".csv" />
+      <button type="submit" [disabled]="isLoading">
+        {{ isLoading ? "Enviando..." : "Enviar" }}
+      </button>
+    </form>
+  </div>
+
+  <h3 style="margin-top: 16px">Relatório</h3>
+  <div class="section">
+    <div *ngIf="!log">
+      <pre
+        style="
+          background: #0b0c0e;
+          color: #c7d2fe;
+          padding: 12px;
+          border-radius: 10px;
+          margin: 0;
+        "
+      >
+      Aguardando upload...
+    </pre
+      >
+    </div>
+
+    <div *ngIf="log">
+      <div style="margin-bottom: 12px">
+        <strong>Processados:</strong> {{ log.processados ?? "-" }} &nbsp;
+        <strong>Inseridos:</strong> {{ log.inseridos ?? "-" }}
+      </div>
+
+      <div *ngIf="log.erros && log.erros.length; else noErrors">
+        <table>
+          <thead>
+            <tr>
+              <th>Linha</th>
+              <th>Motivo</th>
+              <th>Raw</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let e of log.erros">
+              <td>{{ e.linha }}</td>
+              <td>{{ e.motivo }}</td>
+              <td style="max-width: 400px; overflow: auto; white-space: nowrap">
+                {{ e.raw }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noErrors>
+        <div
+          style="
+            background: #0b0c0e;
+            color: #c7d2fe;
+            padding: 12px;
+            border-radius: 10px;
+          "
+        >
+          Sem erros reportados.
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

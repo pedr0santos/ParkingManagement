@@ -1,0 +1,44 @@
+<div class="container">
+  <h2>Faturamento</h2>
+
+  <div class="section">
+    <div style="display: flex; gap: 10px; align-items: center">
+      <input [(ngModel)]="comp" placeholder="yyyy-MM" />
+      <button (click)="gerarFaturas()">Gerar faturas</button>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 16px">Faturas</h3>
+
+  <div class="section">
+    <p *ngIf="isLoading">Carregando...</p>
+
+    <table *ngIf="!isLoading && (faturas$ | async) as faturas">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Competência</th>
+          <th>Valor</th>
+          <th>Qtd Veículos</th>
+          <th>Placas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let f of faturas">
+          <td>{{ f.clienteId }}</td>
+          <td>{{ f.competencia }}</td>
+          <td>{{ f.valor | number: '1.2-2' }}</td>
+          <td>{{ f.qtdVeiculos }}</td>
+          <td>
+            <button class="btn-ghost" (click)="togglePlacas(f.id)">
+              {{ expandedFaturaId === f.id ? 'ocultar' : 'detalhar' }}
+            </button>
+            <div *ngIf="expandedFaturaId === f.id" style="margin-top: 6px">
+              {{ placasPorFatura[f.id]?.join(', ') }}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

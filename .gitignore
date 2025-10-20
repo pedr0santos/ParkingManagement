@@ -1,0 +1,47 @@
+### .NET / Visual Studio ###
+bin/
+obj/
+out/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vs/
+*.vscode/
+*.idea/
+*.log
+
+# Configurações locais
+launchSettings.json
+
+# Teste e publicação
+TestResult*/
+build/
+artifacts/
+*.db
+*.mdf
+*.ldf
+
+### Node / React ###
+node_modules/
+dist/
+build/
+*.local
+*.cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+### Sistema operacional ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### Ambiente ###
+.env
+.env.*.local
